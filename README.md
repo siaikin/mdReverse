@@ -1,7 +1,7 @@
 # mdReserve
 将HTML文本转换为Markdown格式文本。由JavaScript编写
 
-[Demo](https://abc1310054026.github.io/md-reserve/)
+[Demo](https://abc1310054026.github.io/mdReverse/)
 
 * [开发进度](./development.md)
 * [English Version](./README_EN.md)

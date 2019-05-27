@@ -1,7 +1,7 @@
 # mdReserve
 Convert HTML to Markdown. Written by JavaScript.
 
-[Demo](https://abc1310054026.github.io/md-reserve/)
+[Demo](https://abc1310054026.github.io/mdReverse/)
 
 * [development schedule](./development.md)
 * [For more information see Chinese](./README_EN.md)

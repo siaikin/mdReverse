@@ -1,9 +1,9 @@
-// import {MdReserve} from 'md-reserve';
-var MR = require('md-reverse');
+import {MdReverse} from './src/index';
+// var MR = require('md-reverse');
 // css file
 import './styles.css';
 
-const mdReserve = new MR.MdReverse();
+const mdReserve = new MdReverse();
 
 const htmlArea  = document.getElementById('html-area');
 const mdArea    = document.getElementById('markdown-area');

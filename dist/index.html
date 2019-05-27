@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+    <title>MdReverse</title>
+<link href="styles.css" rel="stylesheet"></head>
 <body>
-
+    <!--<div id="toolbar-container" class="columns col-gapless">-->
+        <!--<div class="column col-2"></div>-->
+        <!--<div class="column col-10"></div>-->
+    <!--</div>-->
+    <div id="main-container" class="columns col-gapless">
+        <div class="column col-6 p-2">
+            <div class="form-group">
+                <label class="form-label" for="html-area">HTML Text</label>
+                <textarea class="form-input" id="html-area" placeholder="Input HTML Text" spellcheck="false"></textarea>
+            </div>
+        </div>
+        <div class="column col-6 p-2">
+            <div class="form-group">
+                <label class="form-label" for="markdown-area">Markdown Text</label>
+                <textarea class="form-input" id="markdown-area" placeholder="Output Markdown Text" spellcheck="false" readonly></textarea>
+            </div>
+        </div>
+    </div>
 <script type="text/javascript" src="demo.js"></script></body>
 </html>
