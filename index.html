@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Md Reserve Demo</title>
+</head>
+<body>
+<script>
+    const url = `${location.protocol}//${location.host}${location.pathname}`;
+    let replaceUrl;
+    if (/(\/index\.html\/?|\/)/g.test(url)) {
+        replaceUrl = url.replace(/(\/index\.html\/?|\/)$/, "/dist/index.html");
+        window.location.replace(replaceUrl);
+    } else {
+        document.writeln('ERROR');
+        document.writeln('<h1>老哥，url地址有问题，用下面那个试一下</h1>');
+        document.writeln('<a href="https://abc1310054026.github.io/md-reserve/dist/index.html">下面这个</a>');
+        document.writeln('<a href="https://abc1310054026.github.io/md-reserve/index.html">不行还有这个</a>');
+    }
+</script>
+</body>
+</html>

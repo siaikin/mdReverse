@@ -1,0 +1,27 @@
+@import "~spectre.css/dist/spectre.min.css";
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+#toolbar-container {
+    width: 100%;
+    height: 10%;
+}
+
+#main-container {
+    width: 100%;
+    height: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.form-group textarea {
+    flex: 1;
+}
