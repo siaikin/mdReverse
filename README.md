@@ -3,7 +3,7 @@
 
 [Demo](https://abc1310054026.github.io/mdReverse/)
 
-* [开发进度](./development.md)
+* [开发进度](docs/development.md)
 * [English Version](./README_EN.md)
 ## 安装
 npm:

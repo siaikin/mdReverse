@@ -3,7 +3,7 @@ Convert HTML to Markdown. Written by JavaScript.
 
 [Demo](https://abc1310054026.github.io/mdReverse/)
 
-* [development schedule](./development.md)
+* [development schedule](docs/development.md)
 * [For more information see Chinese](./README_EN.md)
 ## Installation
 npm:
