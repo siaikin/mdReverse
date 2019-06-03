@@ -1,4 +1,4 @@
-# HTML逆向解析生成Markdown
+# HTML逆向解析生成Markdown —— 之一
 解析过程分为四个阶段。以下是各个阶段的简要说明。
 1.  分词：将HTML原始文本分割为HTML标签
 2.  生成虚拟DOM节点：将分割后的HTML标签转换成对应的节点
@@ -150,12 +150,26 @@ const result = [
     我在配置文件里写了一个映射表（[配置文件](../src/lib/nwodkramConfig.js)），以`tag`作为key对应数字作为value。这样就能很方便的对应起来。
 3.  `position`：这个属性虽然叫`position`，其实`type`才更适合它，因为它标识了开始标签（Opening tag）：1，结束标签（Closing tag）：2，空元素（empty tag）和文本节点（text node）：3
     
-    `position`的判断写的我写的有些简陋，只考虑到了上文`tag`所列的几种情况（但也已经能包括大部分情况了）。从上面那几种情况来说。
+    `position`的判断我写的比较简单，只考虑到了上文`tag`所列的几种情况（但也已经能包括大部分情况了）。从上面那几种情况来说。
     只要判断`tag`开始位置的下标索引是/不是`1`，就能知道是/不是Opening tag了。
     
     关于文本节点的判断：文本节点是没有`tag`的，如果无法搜索到`tag`，就可以将节点标识为文本节点。
-4.  `attr`
-    
+4.  `attr`：`attr`里面保存着解析成Markdown文本所需要的一些属性。大多数情况是和链接相关的，比如以下几种：
+    1.  Markdown规范中的与链接有关的语法（`Links` `Images` `Heading IDs` `Footnotes`）。
+        1.  `Links`：`src` `title`
+        2.  `Image`: `src` `title` `alt`
+        3.  `Heading IDs`：`id`
+        4.  `Footnotes`：`id`
+5.  `content`：文本节点不多说了。
+
 具体实现见[parser.js](../src/lib/parser.js)
 
-## 构建虚拟DOM树
+## 结束
+反向解析要详细讲比较繁琐，这是第一部分，预计分三章讲完。
+
+###### PS.
+诸位感兴趣的话点个赞或者评论一下，我会比较有动力写。
+###### PSS.
+大三了，最近找实习啊，宁波杭州上海有招前端的吗？
+###### PSSS.
+我应该也能算一个Markdown爱好者了吧。。。

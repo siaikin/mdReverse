@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abc1310054026/mdReverse.git"
+    "url": "git+https://github.com/siaikin/mdReverse.git"
   },
   "keywords": [
     "htmltomarkdown",
@@ -20,12 +20,12 @@
     "html2markdown",
     "convert"
   ],
-  "author": "abc1310054026 <abc1310054026@163.com>",
+  "author": "siaikin <abc1310054026@163.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/abc1310054026/mdReverse/issues"
+    "url": "https://github.com/siaikin/mdReverse/issues"
   },
-  "homepage": "https://github.com/abc1310054026/mdReverse#readme",
+  "homepage": "https://github.com/siaikin/mdReverse#readme",
   "files": [
     "es5",
     "src"

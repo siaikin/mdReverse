@@ -1,4 +1,5 @@
 # 实现过程
+**详细开发文档见[HTML逆向解析生成Markdown —— 之一](./devSummary.md)**
 ## 词法分析
 1.  接收原始HTML文本
 2.  分割HTML元素：`opening tag` `enclosed text content` `closing tag`（[按照HTML元素的语法](https://developer.mozilla.org/zh-CN/docs/Glossary/HTML)）
