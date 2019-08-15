@@ -1,4 +1,5 @@
-import {EL_TYPE, REGEXP, TOKEN_RULE} from "./nwodkramConfig";
+import {EL_TYPE, REGEXP, TOKEN_RULE} from "./config";
+import {Tools} from './tools/tools';
 
 function Parser() {
 
@@ -11,7 +12,7 @@ Object.defineProperties(Parser.prototype, {
 });
 
 function analysis(tokenArr) {
-    if (!(tokenArr instanceof Array)) return;
+    if (!Tools.typeIs(tokenArr, Tools.TYPE.Array)) return;
 
     console.time('syntactic analysis');
     const result = [];
@@ -50,6 +51,7 @@ function filterAttribute(str, exclude) {
     if (!exclude || exclude.length <= 0) return null;
 
     const avps = str.match(REGEXP.attribute);
+    console.log(avps);
     let avp, result = {};
     for (let i = avps.length; i--;) {
         avp = avps[i].split('=');

@@ -147,7 +147,7 @@ const result = [
     很容易发现要想得到tagName只需要找到在`<`和（`空格`或`/`）之间的字符串就可以了。
 2.  `type`：这个属性是为了方便之后的类型处理添加的，毕竟数字相对字符串来说更好处理。
     
-    我在配置文件里写了一个映射表（[配置文件](../src/lib/nwodkramConfig.js)），以`tag`作为key对应数字作为value。这样就能很方便的对应起来。
+    我在配置文件里写了一个映射表（[配置文件](../src/lib/config.js)），以`tag`作为key对应数字作为value。这样就能很方便的对应起来。
 3.  `position`：这个属性虽然叫`position`，其实`type`才更适合它，因为它标识了开始标签（Opening tag）：1，结束标签（Closing tag）：2，空元素（empty tag）和文本节点（text node）：3
     
     `position`的判断我写的比较简单，只考虑到了上文`tag`所列的几种情况（但也已经能包括大部分情况了）。从上面那几种情况来说。

@@ -2,6 +2,8 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+// 自定义NODE_ENV变量将其设置为开发模式
+process.env.NODE_ENV = 'development';
 module.exports = {
     entry: './demo.js',
     mode: "development",

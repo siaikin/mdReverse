@@ -1,4 +1,4 @@
-import {EL_TYPE, GLOBAL_CONFIG, TOKEN_RULE} from "./nwodkramConfig";
+import {EL_TYPE, GLOBAL_CONFIG, TOKEN_RULE} from "./config";
 
 function VDOMTree() {
 

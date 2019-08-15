@@ -1,4 +1,21 @@
-import {REGEXP} from "./nwodkramConfig";
+import {REGEXP} from "../config";
+
+const TYPE = {
+    Array: '[object Array]',
+    Boolean: '[object Boolean]',
+    BigInt: '[object BigInt]',
+    Date: '[object Date]',
+    Error: '[object Error]',
+    Number: '[object Number]',
+    Null: '[object Null]',
+    Math: '[object Math]',
+    Object: '[object Object]',
+    RegExp: '[object RegExp]',
+    String: '[object String]',
+    Symbol: '[object Symbol]',
+    Undefined: '[object Undefined]',
+    UnKnown: '[object Unknown]',
+};
 
 function _Tools() {
 
@@ -16,6 +33,12 @@ Object.defineProperties(_Tools.prototype, {
     },
     compressWs: {
         value: compressWs
+    },
+    TYPE: {
+        value: TYPE
+    },
+    typeIs: {
+        value: typeIs
     }
 });
 
@@ -52,7 +75,7 @@ function compressWs(str) {
  */
 function isEmpty(str, start = 0, end = str.length - 1) {
     const ws = REGEXP.whitespace;
-    for (;start <= end;start++) {
+    for (;start <= end; start++) {
         if (!ws.test(str[start])) return false;
     }
 
@@ -78,5 +101,25 @@ function hasWhiteSpace(str, start = 0, end = str.length - 1) {
         start: head,
         end: tail
     }
+}
+
+function typeOf(variable) {
+    return Object.prototype.toString.call(variable);
+}
+
+/**
+ * 判断变量是否为`typeArray`中的某一个类型
+ * @param variable - 待判断的变量
+ * @param typeArray - 预选类型
+ * @return {boolean} - `variable`的类型存在与`typeArray`中返回`true`，不存在返回`false`
+ */
+function typeIs(variable, ...typeArray) {
+    const varType = typeOf(variable);
+    for (let i = typeArray.length; i--;) {
+        if (varType === typeArray[i]) {
+            return true;
+        }
+    }
+    return false;
 }
 export var Tools = new _Tools();

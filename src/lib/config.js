@@ -1,9 +1,9 @@
-import {Tools} from "./tools";
+import {Tools} from "./tools/tools";
 
 const REGEXP = {
     whitespace: /\s/,
     tag: /<\S+>/g,
-    attribute: /[a-zA-Z0-9\-]+=[^\s>]+/g,
+    attribute: /[a-zA-Z0-9\-]+=".?"[/s|>]/g,
     escapeMdChar: /([\\`*_{}\[\]()#+\-.!])/g,           // 转义Markdown保留字符
     unescapeHTMLEntry: /&(amp|lt|gt|quot|nbsp);/g       // 反转义HTML实体的保留字符
 };
@@ -23,7 +23,7 @@ const EL_TYPE = {
     // 无法识别的标签，默认有闭合标签，数值为2的倍数
     'htmlNode': -2,
     'all_element': 0,
-    // 双标签（tag）元素
+    // 双标签（tag）元素，偶数表示
     'a': 2,
     'h': 4,
     'p': 6,
@@ -59,7 +59,7 @@ const EL_TYPE = {
     'figcaption': 54,
     // 文本元素
     'textNode': 1,
-    // 单标签（tag）元素
+    // 单标签（tag）元素，奇数表示
     'br': 3,
     'hr': 5,
     'img': 7,
@@ -69,6 +69,7 @@ const EL_TYPE = {
     'meta': 15,
     '!----': 17,
 };
+
 const DEFAULT_RULE = {
     defaultToken: {
         filterRule: {
@@ -94,7 +95,7 @@ const DEFAULT_RULE = {
             return '';
         }
     },
-    signleToken: {
+    singleToken: {
         filterRule: {
             attribute: [],
             children: []
@@ -408,11 +409,11 @@ const TOKEN_RULE = {
             return `](${attr['src'] || ''} "${attr['title'] || ''}")\n`;
         }
     },
-    [EL_TYPE['link']]: DEFAULT_RULE.signleToken,
-    [EL_TYPE['!--']]: DEFAULT_RULE.signleToken,
-    [EL_TYPE['input']]: DEFAULT_RULE.signleToken,
-    [EL_TYPE['meta']]: DEFAULT_RULE.signleToken,
-    [EL_TYPE['!----']]: DEFAULT_RULE.signleToken,
+    [EL_TYPE['link']]: DEFAULT_RULE.singleToken,
+    [EL_TYPE['!--']]: DEFAULT_RULE.singleToken,
+    [EL_TYPE['input']]: DEFAULT_RULE.singleToken,
+    [EL_TYPE['meta']]: DEFAULT_RULE.singleToken,
+    [EL_TYPE['!----']]: DEFAULT_RULE.singleToken,
 };
 
 const GLOBAL_CONFIG = {
@@ -429,9 +430,17 @@ const GLOBAL_CONFIG = {
     }
 };
 
+const CONSOLE_TYPE = {
+    success: 'color: #67C23A;font-size: 12px',
+    warn: 'color: #E6A23A;font-size: 12px',
+    error: 'color: #F56C6C;font-size: 12px',
+    info: 'color: #909399;font-size: 12px'
+};
+
 export {
     REGEXP,
     EL_TYPE,
     TOKEN_RULE,
-    GLOBAL_CONFIG
+    GLOBAL_CONFIG,
+    CONSOLE_TYPE
 }

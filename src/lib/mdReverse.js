@@ -1,10 +1,10 @@
-import {REGEXP, EL_TYPE, TOKEN_RULE} from "./nwodkramConfig";
+import {REGEXP, EL_TYPE, TOKEN_RULE} from "./config";
 import {TablePlugin} from "./plugins/table";
 import {Lexer} from "./lexer";
 import {Parser} from "./parser";
 import {VDOMTree} from "./vdomt";
 import {Markdown} from "./markdown";
-import {Tools} from "./tools";
+import {Tools} from "./tools/tools";
 
 function MdReverse() {
     this.HTML = '';

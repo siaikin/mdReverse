@@ -1,7 +1,6 @@
-import {TOKEN_RULE} from "./nwodkramConfig";
+import {TOKEN_RULE} from "./config";
 
 function Markdown() {
-
 }
 
 Object.defineProperties(Markdown.prototype, {

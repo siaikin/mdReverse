@@ -1,5 +1,7 @@
 const path = require('path');
 
+// 自定义NODE_ENV变量将其设置为生产模式
+process.env.NODE_ENV = 'production';
 module.exports = {
     entry: './src/index.js',
     mode: "production",

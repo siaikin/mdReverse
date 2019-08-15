@@ -1,7 +1,6 @@
-import {Tools} from "./tools";
+import {Tools} from "./tools/tools";
 
 function Lexer() {
-
 }
 
 Object.defineProperties(Lexer.prototype, {
@@ -10,6 +9,11 @@ Object.defineProperties(Lexer.prototype, {
     }
 });
 
+/**
+ * 分解传入的HTML字符串
+ * @param str - HTML字符串
+ * @return {[]}
+ */
 function analysis(str) {
     str = Tools.trim(str);
     console.time('lexical analysis');
@@ -34,7 +38,9 @@ function analysis(str) {
                 }
                 break;
             case '"':
-                if (stack[stack.length - 1] === '"') {
+                if (stack[stack.length - 1] === '"' &&
+                    (str[i + 1] === ' ' || str[i + 1] === '>')
+                ) {
                     stack.pop();
                 } else if (stack[stack.length - 1] === '<') {
                     stack.push(char);
