@@ -37,6 +37,9 @@ Object.defineProperties(_Tools.prototype, {
     TYPE: {
         value: TYPE
     },
+    typeOf: {
+        value: typeOf
+    },
     typeIs: {
         value: typeIs
     }

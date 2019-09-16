@@ -3,7 +3,7 @@ import {Tools} from "./tools/tools";
 const REGEXP = {
     whitespace: /\s/,
     tag: /<\S+>/g,
-    attribute: /[a-zA-Z0-9\-]+=".?"[/s|>]/g,
+    attribute: /[a-zA-Z0-9\-]+=[^\s>]+/g,
     escapeMdChar: /([\\`*_{}\[\]()#+\-.!])/g,           // 转义Markdown保留字符
     unescapeHTMLEntry: /&(amp|lt|gt|quot|nbsp);/g       // 反转义HTML实体的保留字符
 };
@@ -398,7 +398,7 @@ const TOKEN_RULE = {
     },
     [EL_TYPE['img']]: {
         filterRule: {
-            attribute: ['src', 'title'],
+            attribute: [{name: 'src', alias: ['data-src']}, {name: 'title'}],
             children: []
         },
         convertRule: function (node) {

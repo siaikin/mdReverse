@@ -55,9 +55,23 @@ function filterAttribute(str, exclude) {
     let avp, result = {};
     for (let i = avps.length; i--;) {
         avp = avps[i].split('=');
-        if (exclude.includes(avp[0])) {
-            result[avp[0]] = avp[1].slice(1, avp[1].length - 1);
+        for (let j = exclude.length; j--;) {
+            let type = Tools.typeOf(exclude[j]);
+            if (type === Tools.TYPE.String) {
+                if (exclude[j] === avp[0]) {
+                    result[avp[0]] = avp[1].slice(1, avp[1].length - 1);
+                    break;
+                }
+            } else if (type === Tools.TYPE.Object) {
+                if (exclude[j].name === avp[0] || exclude[j].alias.includes(avp[0])) {
+                    result[avp[0]] = avp[1].slice(1, avp[1].length - 1);
+                    break;
+                }
+            }
         }
+        // if (exclude.includes(avp[0])) {
+        //     result[avp[0]] = avp[1].slice(1, avp[1].length - 1);
+        // }
     }
 
     return result;

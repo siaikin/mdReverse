@@ -2,25 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="13e0dece-006e-462c-b9ea-53763e7fc77a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eslintrc.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README_EN.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README_EN.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/devSummary.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/devSummary.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/lexer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/lexer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/markdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/markdown.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/mdReverse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/mdReverse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/nwodkramConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/parser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/tools.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/tools/tools.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/vdomt.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/vdomt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.dev.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.dev.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.prod.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.prod.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/tools/tools.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/tools/tools.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -171,6 +156,8 @@
       <workItem from="1565440890209" duration="283000" />
       <workItem from="1565441184668" duration="21476000" />
       <workItem from="1565574489389" duration="263000" />
+      <workItem from="1567665114476" duration="5976000" />
+      <workItem from="1568619286472" duration="989000" />
     </task>
     <servers />
   </component>
