@@ -1,4 +1,4 @@
-import {REGEXP} from "../config";
+import {REGEXP, LineSeparator} from "../config";
 
 const TYPE = {
     Array: '[object Array]',
@@ -6,6 +6,7 @@ const TYPE = {
     BigInt: '[object BigInt]',
     Date: '[object Date]',
     Error: '[object Error]',
+    Function: '[object Function]',
     Number: '[object Number]',
     Null: '[object Null]',
     Math: '[object Math]',
@@ -18,7 +19,6 @@ const TYPE = {
 };
 
 function _Tools() {
-
 }
 
 Object.defineProperties(_Tools.prototype, {
@@ -42,6 +42,12 @@ Object.defineProperties(_Tools.prototype, {
     },
     typeIs: {
         value: typeIs
+    },
+    lastHasLS: {
+        value: lastHasLS
+    },
+    removeLastLS: {
+        value: removeLastLS
     }
 });
 
@@ -124,5 +130,50 @@ function typeIs(variable, ...typeArray) {
         }
     }
     return false;
+}
+
+/**
+ * 判断字符串末尾是否有换行符
+ * @param str
+ */
+function lastHasLS(str) {
+    let CR, LF, max, diff;
+    CR = str.lastIndexOf(LineSeparator.CR);
+    LF = str.lastIndexOf(LineSeparator.LF);
+    max = CR > LF ? CR : LF;
+    diff = LF - CR;
+    if (max !== str.length - 1) {
+        return false;
+    } else {
+        if (Math.abs(diff) > 1 || diff === -1) {
+            return {
+                type: max === CR ? 'CR' : 'LF'
+            }
+        } else if (diff === 1) {
+            return {
+                type: 'CRLF'
+            }
+        }
+
+    }
+   return false;
+}
+
+/**
+ * 移除字符串中的最后一个行分割符{@link LineSeparator}，如果存在的话。
+ * @param str
+ */
+function removeLastLS(str) {
+    let lastLS = lastHasLS(str);
+    switch (lastLS.type) {
+        case 'CR':
+        case 'LF':
+            str = str.slice(0, -1);
+            break;
+        case 'CRLF':
+            str = str.slice(0, -2);
+            break;
+    }
+    return str;
 }
 export var Tools = new _Tools();

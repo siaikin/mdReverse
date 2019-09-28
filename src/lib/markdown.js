@@ -48,20 +48,26 @@ function translate(vdomt) {
  * @param pos {'head' | 'tail' | 'headtail'} - 应用开始/结束的转换规则
  */
 function convertToken(node, pos) {
-    let result, rule = TOKEN_RULE[node.type];
+    let rule = TOKEN_RULE[node.type], parNode = node.parentNode, parRule = parNode && TOKEN_RULE[parNode.type];
     switch (pos) {
         case 'head':
-            let pre = '', parNode = node.parentNode;
+            let pre = undefined;
 
-            if (parNode && parNode.child_pre) pre += parNode.child_pre;
+            if (parNode && parNode.child_pre) pre = parNode.child_pre;
             if (rule.childNodeRule) {
-                pre += rule.childNodeRule.pre ? rule.childNodeRule.pre(node) : '';
+                if (rule.childNodeRule.pre)
+                    pre = (pre === undefined ? '' : pre) + rule.childNodeRule.pre(node);
             }
-            node['child_pre'] = pre;
+
+            if (pre) node['child_pre'] = pre;
             return rule.convertRule(node);
         case 'tail':
             // console.log(`[${node.tag}]: ${pos}`);
-            return rule.endRule(node);
+            let end = rule.endRule(node);
+            if (parRule && parRule.childNodeRule && parRule.childNodeRule.post) {
+               end = parRule.childNodeRule.post(parNode, node, end);
+            }
+            return end;
         case 'headtail':
         default:
             // console.log(`[${node.tag}]: ${pos}`);

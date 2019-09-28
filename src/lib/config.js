@@ -1,11 +1,24 @@
 import {Tools} from "./tools/tools";
 
+/**
+ * @namespace
+ * @type {{CRLF: string, LF: string, CR: string}}
+ */
+const LineSeparator = {
+    CR: '\r',
+    LF: '\n',
+    CRLF: '\r\n'
+};
+const LS = LineSeparator.LF;
+
 const REGEXP = {
     whitespace: /\s/,
     tag: /<\S+>/g,
     attribute: /[a-zA-Z0-9\-]+=[^\s>]+/g,
-    escapeMdChar: /([\\`*_{}\[\]()#+\-.!])/g,           // 转义Markdown保留字符
-    unescapeHTMLEntry: /&(amp|lt|gt|quot|nbsp);/g       // 反转义HTML实体的保留字符
+    escapeMdChar: /([\\`*_{}\[\]()#+\-.!])/g,               // 转义Markdown保留字符
+    unescapeHTMLEntry: /&(amp|lt|gt|quot|nbsp);/g,          // 反转义HTML实体的保留字符
+    LineSeparator: {
+    }
 };
 
 /**
@@ -289,13 +302,22 @@ const TOKEN_RULE = {
         childNodeRule: {
             pre: function (node) {
                 return `>   `;
+            },
+            post: function (node, child, child_post) {
+                if (child.type !== EL_TYPE['blockquote'] || child.isLast)
+                    child_post = Tools.removeLastLS(child_post);
+                if (child.isLast)
+                    child_post = Tools.removeLastLS(child_post);
+                return child_post;
             }
         },
         convertRule: function (node) {
             return ``;
         },
         endRule: function (node) {
-            return `\n\n`;
+            let end = LS, next = node.parentNode.children[node.index + 1];
+            if (!next || next.type !== EL_TYPE['blockquote']) end += LS;
+            return end;
         }
     },
     [EL_TYPE['h1']]: {
@@ -438,6 +460,8 @@ const CONSOLE_TYPE = {
 };
 
 export {
+    LS,
+    LineSeparator,
     REGEXP,
     EL_TYPE,
     TOKEN_RULE,
