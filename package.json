@@ -1,6 +1,6 @@
 {
   "name": "md-reverse",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "written by JavaScript. Convert HTML to Markdown.",
   "main": "es5/index.js",
   "scripts": {

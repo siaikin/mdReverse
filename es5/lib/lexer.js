@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Lexer = Lexer;
 
-var _tools = require("./tools");
+var _tools = require("./tools/tools");
 
 function Lexer() {}
 
@@ -22,6 +22,11 @@ Object.defineProperties(Lexer.prototype, {
     value: analysis
   }
 });
+/**
+ * 分解传入的HTML字符串
+ * @param str - HTML字符串
+ * @return {[]}
+ */
 
 function analysis(str) {
   str = _tools.Tools.trim(str);
@@ -56,7 +61,7 @@ function analysis(str) {
         break;
 
       case '"':
-        if (stack[stack.length - 1] === '"') {
+        if (stack[stack.length - 1] === '"' && (str[i + 1] === ' ' || str[i + 1] === '>')) {
           stack.pop();
         } else if (stack[stack.length - 1] === '<') {
           stack.push(_char);

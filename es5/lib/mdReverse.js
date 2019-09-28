@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.MdReverse = MdReverse;
 
-var _nwodkramConfig = require("./nwodkramConfig");
+var _config = require("./config");
 
 var _table = require("./plugins/table");
 
@@ -23,7 +23,7 @@ var _vdomt = require("./vdomt");
 
 var _markdown = require("./markdown");
 
-var _tools = require("./tools");
+var _tools = require("./tools/tools");
 
 function MdReverse() {
   this.HTML = '';
@@ -35,7 +35,7 @@ Object.defineProperties(MdReverse.prototype, {
   },
   plugin: {
     value: function value(fun) {
-      fun.call(this, _nwodkramConfig.EL_TYPE, _nwodkramConfig.TOKEN_RULE);
+      fun.call(this, _config.EL_TYPE, _config.TOKEN_RULE);
       return this;
     }
   }

@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Markdown = Markdown;
 
-var _nwodkramConfig = require("./nwodkramConfig");
+var _config = require("./config");
 
 function Markdown() {}
 
@@ -67,25 +67,31 @@ function translate(vdomt) {
 
 
 function convertToken(node, pos) {
-  var result,
-      rule = _nwodkramConfig.TOKEN_RULE[node.type];
+  var rule = _config.TOKEN_RULE[node.type],
+      parNode = node.parentNode,
+      parRule = parNode && _config.TOKEN_RULE[parNode.type];
 
   switch (pos) {
     case 'head':
-      var pre = '',
-          parNode = node.parentNode;
-      if (parNode && parNode.child_pre) pre += parNode.child_pre;
+      var pre = undefined;
+      if (parNode && parNode.child_pre) pre = parNode.child_pre;
 
       if (rule.childNodeRule) {
-        pre += rule.childNodeRule.pre ? rule.childNodeRule.pre(node) : '';
+        if (rule.childNodeRule.pre) pre = (pre === undefined ? '' : pre) + rule.childNodeRule.pre(node);
       }
 
-      node['child_pre'] = pre;
+      if (pre) node['child_pre'] = pre;
       return rule.convertRule(node);
 
     case 'tail':
       // console.log(`[${node.tag}]: ${pos}`);
-      return rule.endRule(node);
+      var end = rule.endRule(node);
+
+      if (parRule && parRule.childNodeRule && parRule.childNodeRule.post) {
+        end = parRule.childNodeRule.post(parNode, node, end);
+      }
+
+      return end;
 
     case 'headtail':
     default:

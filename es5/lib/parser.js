@@ -6,6 +6,8 @@ require("core-js/modules/es.array.index-of");
 
 require("core-js/modules/es.array.slice");
 
+require("core-js/modules/es.function.name");
+
 require("core-js/modules/es.object.define-properties");
 
 require("core-js/modules/es.object.define-property");
@@ -23,7 +25,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Parser = Parser;
 
-var _nwodkramConfig = require("./nwodkramConfig");
+var _config = require("./config");
+
+var _tools = require("./tools/tools");
 
 function Parser() {}
 
@@ -34,7 +38,7 @@ Object.defineProperties(Parser.prototype, {
 });
 
 function analysis(tokenArr) {
-  if (!(tokenArr instanceof Array)) return;
+  if (!_tools.Tools.typeIs(tokenArr, _tools.Tools.TYPE.Array)) return;
   console.time('syntactic analysis');
   var result = [];
   var tag, type, attr, pos, content, token, separator, obj;
@@ -44,11 +48,11 @@ function analysis(tokenArr) {
     separator = indexOfTypeSeparator(tokenArr[i]);
     tag = separator ? token.slice(separator.start, separator.end) : 'textNode'; // HTML标签名
 
-    type = _nwodkramConfig.EL_TYPE[tag] || _nwodkramConfig.EL_TYPE['htmlNode']; // tag对应类型
+    type = _config.EL_TYPE[tag] || _config.EL_TYPE['htmlNode']; // tag对应类型
 
     pos = type & 1 ? 3 : separator.start === 1 ? 1 : 2; // 标识标签位置类型（开标签: 1, 闭标签: 2, 空元素: 3）
 
-    attr = pos & 1 ? filterAttribute(token, _nwodkramConfig.TOKEN_RULE[type].filterRule.attribute) : null; // HTML标签属性键值对
+    attr = pos & 1 ? filterAttribute(token, _config.TOKEN_RULE[type].filterRule.attribute) : null; // HTML标签属性键值对
 
     content = type === 1 ? token : null; // 文本节点特有，保存节点内容
 
@@ -75,16 +79,34 @@ function analysis(tokenArr) {
 
 function filterAttribute(str, exclude) {
   if (!exclude || exclude.length <= 0) return null;
-  var avps = str.match(_nwodkramConfig.REGEXP.attribute);
+  var avps = str.match(_config.REGEXP.attribute);
+  console.log(avps);
   var avp,
       result = {};
 
   for (var i = avps.length; i--;) {
     avp = avps[i].split('=');
 
-    if (exclude.includes(avp[0])) {
-      result[avp[0]] = avp[1].slice(1, avp[1].length - 1);
-    }
+    for (var j = exclude.length, item; j--;) {
+      item = exclude[j];
+
+      var type = _tools.Tools.typeOf(item);
+
+      if (type === _tools.Tools.TYPE.String) {
+        if (item === avp[0]) {
+          result[avp[0]] = avp[1].slice(1, avp[1].length - 1);
+          break;
+        }
+      } else if (type === _tools.Tools.TYPE.Object) {
+        if (item.name === avp[0] || item.alias && item.alias.includes(avp[0])) {
+          result[avp[0]] = avp[1].slice(1, avp[1].length - 1);
+          break;
+        }
+      }
+    } // if (exclude.includes(avp[0])) {
+    //     result[avp[0]] = avp[1].slice(1, avp[1].length - 1);
+    // }
+
   }
 
   return result;

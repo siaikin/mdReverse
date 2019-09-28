@@ -21,7 +21,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.VDOMTree = VDOMTree;
 
-var _nwodkramConfig = require("./nwodkramConfig");
+var _config = require("./config");
 
 function VDOMTree() {}
 
@@ -37,7 +37,7 @@ Object.defineProperties(VDOMTree.prototype, {
 function build(tokenArr) {
   var rootNode = {
     tag: 'root',
-    type: _nwodkramConfig.EL_TYPE['rootNode'],
+    type: _config.EL_TYPE['rootNode'],
     position: 1
   },
       stack = [rootNode];
@@ -45,7 +45,7 @@ function build(tokenArr) {
       curNode,
       children,
       childrenLen,
-      filterChild = [_nwodkramConfig.EL_TYPE['all_element']];
+      filterChild = [_config.EL_TYPE['all_element']];
   console.time('virtual dom tree build');
 
   while (curNode = tokenArr.pop()) {
@@ -59,7 +59,7 @@ function build(tokenArr) {
 
       stack.push(curNode);
       parNode = curNode;
-      filterChild = _nwodkramConfig.TOKEN_RULE[parNode.type].filterRule.children;
+      filterChild = _config.TOKEN_RULE[parNode.type].filterRule.children;
     } else if (curNode.position === 2) {
       // 闭标签
       if (curNode.type !== stack[stack.length - 1].type) {
@@ -72,11 +72,11 @@ function build(tokenArr) {
       childrenLen = children ? children.length : 0;
       if (childrenLen > 0) children[childrenLen - 1]['isLast'] = true; // 给最后一个子节点添加标记
 
-      filterChild = _nwodkramConfig.TOKEN_RULE[parNode.type].filterRule.children;
+      filterChild = _config.TOKEN_RULE[parNode.type].filterRule.children;
 
-      if (_nwodkramConfig.GLOBAL_CONFIG.excludeElement[curNode.type]) {
+      if (_config.GLOBAL_CONFIG.excludeElement[curNode.type]) {
         // 当前节点为注释节点跳过
-        if (_nwodkramConfig.GLOBAL_CONFIG.excludeElement[curNode.type].option === 2) continue;
+        if (_config.GLOBAL_CONFIG.excludeElement[curNode.type].option === 2) continue;
       }
 
       if (!parNode.children) parNode.children = [];
@@ -113,7 +113,7 @@ function filterChildren(tokens, node, filterRule) {
     filter = filterRule.filter;
   }
 
-  if (rule.includes(_nwodkramConfig.EL_TYPE['all_element']) || rule.includes(node.type)) return true;
+  if (rule.includes(_config.EL_TYPE['all_element']) || rule.includes(node.type)) return true;
   filterTag(tokens, node, rule, filter);
   return false;
 }
