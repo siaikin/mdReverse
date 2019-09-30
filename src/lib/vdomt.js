@@ -58,6 +58,18 @@ function build(tokenArr) {
 
             parNode.children.push(curNode);
         }
+
+        // 设置是否属于代码块的标识
+        try {
+            if (curNode.type === EL_TYPE['pre'] ||
+                curNode.type === EL_TYPE['code'] ||
+                (curNode.parentNode && curNode.parentNode.isCode)) {
+                curNode['isCode'] = true;
+            }
+        } catch (e) {
+            console.error('asd', e, curNode, curNode.parentNode);
+        }
+
     }
     console.timeEnd('virtual dom tree build');
     return rootNode;
@@ -85,6 +97,15 @@ function filterChildren(tokens, node, filterRule) {
     return false;
 }
 
+/**
+ * 将curNode子节点中符合规则（rule）的token过滤掉
+ * @param tokenArr
+ * @param curNode
+ * @param rule
+ * @param filter    - 是否只过滤符合rule的节点
+ *                  - true: 只过滤符合rule的节点
+ *                  - false: 过滤所有子节点
+ */
 function filterTag(tokenArr, curNode, rule, filter = false) {
     let node, sameCount = 0, start = tokenArr.length, end = start;
     if (filter) {

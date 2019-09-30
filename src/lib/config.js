@@ -151,7 +151,7 @@ const TOKEN_RULE = {
 
             if (node.parentNode.type === EL_TYPE['strong']) {
                 content = Tools.trim(content);
-            } else {
+            } else if (!node.isCode) {
                 content = Tools.compressWs(content);
             }
             return content;
@@ -207,7 +207,7 @@ const TOKEN_RULE = {
             return (node['child_pre'] || '') + (node.parentNode.type === EL_TYPE['ol'] ? `${node.index + 1}. ` : `* `);
         },
         endRule: function (node) {
-            return node['isLast'] ? '' : '\n';
+            return '\n';
         }
     },
     [EL_TYPE['ol']]: {
@@ -251,13 +251,13 @@ const TOKEN_RULE = {
     [EL_TYPE['pre']]: {
         filterRule: {
             attribute: [],
-            children: [EL_TYPE['code']]
+            children: [EL_TYPE['code'], EL_TYPE['span']]
         },
         convertRule: function (node) {
-            return ``;
+            return '```\n';
         },
         endRule: function (node) {
-            return `\n`;
+            return '\n```\n';
         }
     },
     [EL_TYPE['code']]: {
@@ -269,10 +269,10 @@ const TOKEN_RULE = {
             }
         },
         convertRule: function (node) {
-            return `${node.parentNode.type === EL_TYPE['pre'] ? '```\n' : '`'}`;
+            return `${node.parentNode.type === EL_TYPE['pre'] ? '' : '`'}`;
         },
         endRule: function (node) {
-            return `${node.parentNode.type === EL_TYPE['pre'] ? '\n```\n' : '`'}`;
+            return `${node.parentNode.type === EL_TYPE['pre'] ? '' : '`'}`;
         }
     },
     [EL_TYPE['span']]: DEFAULT_RULE.doubleToken,
