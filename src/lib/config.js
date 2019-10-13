@@ -14,7 +14,7 @@ const LS = LineSeparator.LF;
 const REGEXP = {
     whitespace: /\s/,
     tag: /<\S+>/g,
-    attribute: /[a-zA-Z0-9\-]+=[^\s>]+/g,
+    attribute: /[a-zA-Z0-9\-]+="[^"]+"/g,                   // 截取HTML标签的属性
     escapeMdChar: /([\\`*_{}\[\]()#+\-.!])/g,               // 转义Markdown保留字符
     unescapeHTMLEntry: /&(amp|lt|gt|quot|nbsp);/g,          // 反转义HTML实体的保留字符
     LineSeparator: {
@@ -31,7 +31,14 @@ const RESERVED_CHAR_MAP = {
     '&quot;': '"',
     '&nbsp;': ' '
 };
-const EL_TYPE = {
+
+let nestingEl = {index: 54};
+let emptyEl = {index: 17};
+/**
+ * HTML元素映射表
+ * [关于单/双标签（空/嵌套）元素]{@link https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/HTML_basics}
+ */
+let EL_TYPE = {
     'rootNode': -4,
     // 无法识别的标签，默认有闭合标签，数值为2的倍数
     'htmlNode': -2,
@@ -121,6 +128,10 @@ const DEFAULT_RULE = {
         }
     }
 };
+
+/**
+ * HTML元素配置表
+ */
 const TOKEN_RULE = {
     // // 无法识别的标签，默认有闭合标签，数值为2的倍数
     [EL_TYPE['rootNode']]: DEFAULT_RULE.doubleToken,
@@ -322,38 +333,68 @@ const TOKEN_RULE = {
     },
     [EL_TYPE['h1']]: {
         filterRule: {
-            attribute: [],
-            children: [EL_TYPE['all_element']]
+            attribute: ['id'],
+            children: {
+                include: [EL_TYPE['textNode']],
+                filter: true
+            }
         },
         convertRule: function (node) {
             return `# `;
         },
         endRule: function (node) {
-            return `\n`;
+            let str, id = node.attribute.id;
+            if (Tools.typeOf(id) === Tools.TYPE.String &&
+                id.length > 0) {
+                str = ` {#${node.attribute.id}}\n`;
+            } else {
+                str = '\n';
+            }
+            return str;
         }
     },
     [EL_TYPE['h2']]: {
         filterRule: {
-            attribute: [],
-            children: [EL_TYPE['all_element']]
+            attribute: ['id'],
+            children: {
+                include: [EL_TYPE['textNode']],
+                filter: true
+            }
         },
         convertRule: function (node) {
             return `## `;
         },
         endRule: function (node) {
-            return `\n`;
+            let str, id = node.attribute.id;
+            if (Tools.typeOf(id) === Tools.TYPE.String &&
+                id.length > 0) {
+                str = ` {#${node.attribute.id}}\n`;
+            } else {
+                str = '\n';
+            }
+            return str;
         }
     },
     [EL_TYPE['h3']]: {
         filterRule: {
-            attribute: [],
-            children: [EL_TYPE['all_element']]
+            attribute: ['id'],
+            children: {
+                include: [EL_TYPE['textNode']],
+                filter: true
+            }
         },
         convertRule: function (node) {
             return `### `;
         },
         endRule: function (node) {
-            return `\n`;
+            let str, id = node.attribute.id;
+            if (Tools.typeOf(id) === Tools.TYPE.String &&
+                id.length > 0) {
+                str = ` {#${node.attribute.id}}\n`;
+            } else {
+                str = '\n';
+            }
+            return str;
         }
     },
     [EL_TYPE['h4']]: {
@@ -438,6 +479,9 @@ const TOKEN_RULE = {
     [EL_TYPE['!----']]: DEFAULT_RULE.singleToken,
 };
 
+/**
+ * 全局配置，目前主要用于处理注释
+ */
 const GLOBAL_CONFIG = {
     excludeElement: {
         [EL_TYPE['!--']]: {
@@ -454,10 +498,31 @@ const GLOBAL_CONFIG = {
 
 const CONSOLE_TYPE = {
     success: 'color: #67C23A;font-size: 12px',
-    warn: 'color: #E6A23A;font-size: 12px',
     error: 'color: #F56C6C;font-size: 12px',
+    warn: 'color: #E6A23A;font-size: 12px',
     info: 'color: #909399;font-size: 12px'
 };
+
+/**
+ * 添加一个HTML元素到EL_TYPE和TOKEN_RULE中
+ * @param name - HTML元素标签名
+ * @param allowNest - 元素是否允许嵌套标签，即是否为空标签
+ * @param rule - 可选配置的规则，默认使用DEFAULT_RULE
+ * @return {Error|boolean}
+ */
+function addToken(name, allowNest = true, rule) {
+    let elInfo = allowNest ? nestingEl : emptyEl;
+    rule = rule || (allowNest ? DEFAULT_RULE.doubleToken : DEFAULT_RULE.singleToken);
+    elInfo.index += 2;
+    if (!EL_TYPE[name]) {
+        EL_TYPE[name] = elInfo.index;
+        TOKEN_RULE[EL_TYPE[name]] = rule;
+    }
+    else {
+        return new Error(`HTMLElement: ${name} already exist!`);
+    }
+    return true;
+}
 
 export {
     LS,
@@ -465,6 +530,8 @@ export {
     REGEXP,
     EL_TYPE,
     TOKEN_RULE,
+    DEFAULT_RULE,
     GLOBAL_CONFIG,
-    CONSOLE_TYPE
+    CONSOLE_TYPE,
+    addToken
 }

@@ -1,4 +1,4 @@
-import {REGEXP, EL_TYPE, TOKEN_RULE} from "./config";
+import {REGEXP, EL_TYPE, TOKEN_RULE, DEFAULT_RULE, addToken} from "./config";
 import {TablePlugin} from "./plugins/table";
 import {Lexer} from "./lexer";
 import {Parser} from "./parser";
@@ -14,14 +14,16 @@ Object.defineProperties(MdReverse.prototype, {
     toMarkdown: {
         value: toMarkdown
     },
-    plugin: {
-        value: function (fun) {
-            fun.call(this, EL_TYPE, TOKEN_RULE);
-            return this;
-        }
+    use: {
+        value: use
     }
 });
 
+/**
+ * 将HTML字符串转换为Markdown格式
+ * @param htmlStr
+ * @return {String}
+ */
 function toMarkdown(htmlStr) {
     this.HTML = Tools.trim(htmlStr);
     const lexer = new Lexer(), parser = new Parser(), vdomtree = new VDOMTree(), md = new Markdown();
@@ -33,6 +35,10 @@ function toMarkdown(htmlStr) {
     return result;
 }
 
+function use(plugin) {
+    plugin.plugin(addToken, EL_TYPE, DEFAULT_RULE);
+    return this;
+}
 export {
     MdReverse
 }

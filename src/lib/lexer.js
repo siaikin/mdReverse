@@ -19,31 +19,24 @@ function analysis(str) {
     console.time('lexical analysis');
     const result = [];
     let stack = [], char, start = 0, end = 0;
-    for (let i = 0, len = str.length; i < len; i++) {
+    for (let i = 0, len = str.length, depth; i < len; i++) {
+        depth = stack.length;
         char = str[i];
         switch (char) {
             case '<':
-                if (stack[stack.length - 1] !== '"') {
-                    stack.push(char);
+                stack.push(char);
+                if (depth === 0) {
                     start = i;
+                    // 截取HTML标签之间的文本
                     if (start - end > 1 && !Tools.isEmpty(str, end + 1, start - 1))
                         result.push(str.slice(end + 1, start));
                 }
                 break;
             case '>':
-                if (stack[stack.length - 1] === '<') {
-                    stack.pop();
+                stack.pop();
+                if (depth === 1) {
                     end = i;
                     result.push(str.slice(start, end + 1));
-                }
-                break;
-            case '"':
-                if (stack[stack.length - 1] === '"' &&
-                    (str[i + 1] === ' ' || str[i + 1] === '>')
-                ) {
-                    stack.pop();
-                } else if (stack[stack.length - 1] === '<') {
-                    stack.push(char);
                 }
         }
     }

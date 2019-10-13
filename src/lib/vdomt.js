@@ -76,7 +76,7 @@ function build(tokenArr) {
 }
 
 /**
- * 判断该节点（node）是否符合过滤条件（filterRule）
+ * 判断该节点（node）是否是其父节点的过滤条件（filterRule）所允许的节点
  * @param tokens
  * @param node
  * @param filterRule

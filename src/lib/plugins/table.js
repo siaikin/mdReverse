@@ -1,42 +1,102 @@
-function TablePlugin(EL_TYPE, TOKEN_RULE) {
-    EL_TYPE['td'] = 14;
-    EL_TYPE['th'] = 16;
-    EL_TYPE['tr'] = 18;
-    EL_TYPE['table'] = 34;
-    EL_TYPE['thead'] = 36;
-    EL_TYPE['tbody'] = 38;
+import {Tools} from "../tools/tools";
 
-    TOKEN_RULE[EL_TYPE['td']] = {
-        filterRule: [],
+/**
+ * [Table扩展语法]{ https://www.markdownguide.org/extended-syntax/#tables}
+ * @param addToken
+ * @constructor
+ */
+function TablePlugin() {
+}
+
+TablePlugin.prototype.plugin = function (addToken, EL_TYPE) {
+    addToken('td', true, {
+        filterRule: {
+            children: [EL_TYPE['all_element']]
+        },
         convertRule: function (node) {
             return ' ';
         },
         endRule: function (node) {
             return ` |`;
         }
-    };
-    TOKEN_RULE[EL_TYPE['th']] = TOKEN_RULE[EL_TYPE['td']];
-    TOKEN_RULE[EL_TYPE['tr']] = {
-        filterRule: [],
+    });
+    addToken('th', true, {
+        filterRule: {
+            attribute: [{name: 'style'}],
+            children: [EL_TYPE['all_element']]
+        },
         convertRule: function (node) {
             return ' ';
         },
         endRule: function (node) {
+            return ` |`;
+        }
+    });
+    addToken('tr', true, {
+        filterRule: {
+            children: [EL_TYPE['all_element']]
+        },
+        convertRule: function (node) {
+            return '|';
+        },
+        endRule: function (node) {
             return '\n';
         }
-    };
-    TOKEN_RULE[EL_TYPE['table']] = TOKEN_RULE[EL_TYPE['tr']];
-    TOKEN_RULE[EL_TYPE['thead']] = {
-        filterRule: [],
+    });
+    addToken('table', true, {
+        filterRule: {
+            children: [EL_TYPE['all_element']]
+        },
         convertRule: function (node) {
             return '';
         },
         endRule: function (node) {
-            return `| ------ | ------ |`;
+            return '\n';
         }
-    };
-    TOKEN_RULE[EL_TYPE['tbody']] = TOKEN_RULE[EL_TYPE['tr']];
-}
+    });
+    addToken('thead', true, {
+        filterRule: {
+            children: [EL_TYPE['all_element']]
+        },
+        convertRule: function (node) {
+            return '';
+        },
+        endRule: function (node) {
+            const ths = node.children[0].children;
+            let str = '|', hyphens = '----', colon = ':', ws = ' ';
+            for (let i = 0, len = ths.length, th, cssObj; i < len; i++) {
+                th = ths[i];
+                cssObj = Tools.formatCSS(th.attribute.style);
+                switch (cssObj['text-align']) {
+                    case 'left':
+                        str += ws + colon + hyphens + ws;
+                        break;
+                    case 'center':
+                        str += ws + colon + hyphens + colon + ws;
+                        break;
+                    case 'right':
+                        str += ws + hyphens + colon + ws;
+                        break;
+                    default:
+                        str += ws + hyphens + ws;
+                }
+                str += '|';
+            }
+            return `${str}\n`;
+        }
+    });
+    addToken('tbody', true, {
+        filterRule: {
+            children: [EL_TYPE['all_element']]
+        },
+        convertRule: function (node) {
+            return '';
+        },
+        endRule: function (node) {
+            return '';
+        }
+    });
+};
 
 export {
     TablePlugin

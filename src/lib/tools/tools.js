@@ -48,6 +48,9 @@ Object.defineProperties(_Tools.prototype, {
     },
     removeLastLS: {
         value: removeLastLS
+    },
+    formatCSS: {
+        value: formatCSS
     }
 });
 
@@ -176,4 +179,24 @@ function removeLastLS(str) {
     }
     return str;
 }
+
+/**
+ * 格式化css字符串，将其转为json对象。
+ * @param cssText - css字符串
+ * @return {Object | Error}
+ */
+function formatCSS(cssText) {
+    let cssObj = {}, arr;
+    if (typeOf(cssText) === TYPE.String) {
+        arr = cssText.split(/[:;]/);
+        for (let i = 0, len = arr.length; i < len; i += 2) {
+            cssObj[trim(arr[i])] = trim(arr[i + 1]);
+        }
+
+        return cssObj;
+    } else {
+        return new Error('cssText not String type');
+    }
+}
+
 export var Tools = new _Tools();
