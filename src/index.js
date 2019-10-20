@@ -1,7 +1,10 @@
 import {CONSOLE_TYPE} from './lib/config';
-import {MdReverse, TablePlugin} from "./lib/mdReverse";
+import {MdReverse, TablePlugin, StrikethroughPlugin} from "./lib/mdReverse";
 
-MdReverse.TablePlugin = TablePlugin;
+MdReverse.plugin = {
+    table: TablePlugin,
+    strickthrough: StrikethroughPlugin
+};
 
 const consolee = window.console;
 

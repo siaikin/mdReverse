@@ -1,6 +1,7 @@
 const mdReserve = new MdReverse();
 
-mdReserve.use(new MdReverse.TablePlugin());
+mdReserve.use(MdReverse.plugin['table']);
+mdReserve.use(MdReverse.plugin['strickthrough']);
 const htmlArea  = document.getElementById('html-area');
 const mdArea    = document.getElementById('markdown-area');
 

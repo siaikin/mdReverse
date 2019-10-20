@@ -3,12 +3,10 @@ import {Tools} from "../tools/tools";
 /**
  * [Table扩展语法]{ https://www.markdownguide.org/extended-syntax/#tables}
  * @param addToken
+ * @param EL_TYPE
  * @constructor
  */
-function TablePlugin() {
-}
-
-TablePlugin.prototype.plugin = function (addToken, EL_TYPE) {
+function TablePlugin(addToken, EL_TYPE) {
     addToken('td', true, {
         filterRule: {
             children: [EL_TYPE['all_element']]
@@ -96,7 +94,7 @@ TablePlugin.prototype.plugin = function (addToken, EL_TYPE) {
             return '';
         }
     });
-};
+}
 
 export {
     TablePlugin

@@ -1,5 +1,6 @@
 import {REGEXP, EL_TYPE, TOKEN_RULE, DEFAULT_RULE, addToken} from "./config";
 import {TablePlugin} from "./plugins/table";
+import {StrikethroughPlugin} from "./plugins/strikethrough";
 import {Lexer} from "./lexer";
 import {Parser} from "./parser";
 import {VDOMTree} from "./vdomt";
@@ -36,10 +37,11 @@ function toMarkdown(htmlStr) {
 }
 
 function use(plugin) {
-    plugin.plugin(addToken, EL_TYPE, DEFAULT_RULE);
+    plugin(addToken, EL_TYPE, DEFAULT_RULE);
     return this;
 }
 export {
     MdReverse,
-    TablePlugin
+    TablePlugin,
+    StrikethroughPlugin
 }
