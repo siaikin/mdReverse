@@ -1,4 +1,7 @@
 import {CONSOLE_TYPE} from './lib/config';
+import {MdReverse, TablePlugin} from "./lib/mdReverse";
+
+MdReverse.TablePlugin = TablePlugin;
 
 const consolee = window.console;
 
@@ -35,4 +38,4 @@ if (process.env.NODE_ENV === 'development') {
 } else if (process.env.NODE_ENV === 'production') {
 }
 
-export * from './lib/mdReverse';
+export default MdReverse;

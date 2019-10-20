@@ -1,12 +1,12 @@
 {
   "name": "md-reverse",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "written by JavaScript. Convert HTML to Markdown.",
-  "main": "es5/index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --config webpack.dev.config.js",
-    "build": "webpack --config webpack.dev.config.js",
+    "start": "webpack-dev-server --env.demo",
+    "build": "webpack --env.debug",
     "prepare": "babel src --out-dir es5"
   },
   "repository": {
@@ -38,7 +38,6 @@
     "babel-loader": "^8.0.6",
     "core-js": "^3.1.2",
     "css-loader": "^2.1.1",
-    "eslint": "^6.1.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
     "spectre.css": "^0.5.8",

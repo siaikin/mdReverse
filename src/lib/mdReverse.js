@@ -40,5 +40,6 @@ function use(plugin) {
     return this;
 }
 export {
-    MdReverse
+    MdReverse,
+    TablePlugin
 }
