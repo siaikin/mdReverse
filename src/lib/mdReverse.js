@@ -32,7 +32,6 @@ function toMarkdown(htmlStr) {
     result = parser.analysis(result);
     result = vdomtree.build(result);
     result = md.translate(result);
-    console.log(result);
     return result;
 }
 

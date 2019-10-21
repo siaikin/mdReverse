@@ -12,7 +12,7 @@ Object.defineProperties(Lexer.prototype, {
 /**
  * 分解传入的HTML字符串
  * @param str - HTML字符串
- * @return {[]}
+ * @return {Array}
  */
 function analysis(str) {
     str = Tools.trim(str);
@@ -38,6 +38,12 @@ function analysis(str) {
                     end = i;
                     result.push(str.slice(start, end + 1));
                 }
+                break;
+            default:
+                if (i === len - 1) {
+                    result.push(str.slice(end, len));
+                }
+                break;
         }
     }
 
