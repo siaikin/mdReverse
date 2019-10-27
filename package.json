@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --env.demo",
-    "build": "webpack --env.debug",
-    "prepare": "babel src --out-dir es5"
+    "build": "webpack --env.browser --env.browser-min"
   },
   "repository": {
     "type": "git",
@@ -27,7 +26,6 @@
   },
   "homepage": "https://github.com/siaikin/mdReverse#readme",
   "files": [
-    "es5",
     "src"
   ],
   "devDependencies": {
@@ -40,13 +38,11 @@
     "css-loader": "^2.1.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
+    "jsdoc": "^3.6.3",
     "spectre.css": "^0.5.8",
-    "style-loader": "^0.23.1",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.4.1"
   },
-  "dependencies": {
-    "@babel/polyfill": "^7.4.4"
-  }
+  "dependencies": {}
 }

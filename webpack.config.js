@@ -1,6 +1,4 @@
 const path = require('path');
-const htmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 // 自定义NODE_ENV变量将其设置为开发模式
 process.env.NODE_ENV = 'development';
@@ -9,7 +7,7 @@ const multiConfig = [
     {
         name: 'demo',
         entry: './src/index.js',
-        mode: "development",
+        mode: "production",
         output: {
             path: path.resolve(__dirname, 'dist'),
             filename: "md-reverse.demo.js",
@@ -46,38 +44,6 @@ const multiConfig = [
             libraryTarget: 'umd',
             libraryExport: 'default',
         },
-    },
-    {
-        name: 'debug',
-        entry: './src/index.js',
-        mode: "production",
-        output: {
-            path: path.resolve(__dirname, 'dist'),
-            filename: "md-reverse.js",
-        },
-        module:  {
-            rules: [
-                {
-                    test: /\.js$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: [
-                                [
-                                    '@babel/preset-env',
-                                    {
-                                        targets: "> 0.25%, not dead",
-                                        corejs: 3,
-                                        useBuiltIns: "usage"
-                                    }
-                                ]
-                            ]
-                        }
-                    }
-                }
-            ]
-        }
     }
 ];
 
