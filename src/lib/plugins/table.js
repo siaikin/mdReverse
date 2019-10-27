@@ -1,7 +1,7 @@
 import {Tools} from "../tools/tools";
 
 /**
- * [Table扩展语法]{ https://www.markdownguide.org/extended-syntax/#tables}
+ * [Table扩展语法]{@link https://www.markdownguide.org/extended-syntax/#tables}
  * @param addToken
  * @param EL_TYPE
  * @constructor

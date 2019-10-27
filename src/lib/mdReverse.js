@@ -1,4 +1,4 @@
-import {REGEXP, EL_TYPE, TOKEN_RULE, DEFAULT_RULE, addToken} from "./config";
+import {EL_TYPE, DEFAULT_RULE, addToken} from "./config";
 import {TablePlugin} from "./plugins/table";
 import {StrikethroughPlugin} from "./plugins/strikethrough";
 import {Lexer} from "./lexer";

@@ -51,7 +51,6 @@ function filterAttribute(str, exclude) {
     if (!exclude || exclude.length <= 0) return null;
 
     const avps = str.match(REGEXP.attribute) || [];
-    console.log(avps);
     let avp, result = {};
     for (let i = avps.length; i--;) {
         avp = avps[i].split('=');

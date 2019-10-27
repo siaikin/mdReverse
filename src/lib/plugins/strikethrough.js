@@ -1,7 +1,10 @@
 import {Tools} from "../tools/tools";
 
 /**
- * [Strikethrough扩展语法]{ https://www.markdownguide.org/extended-syntax/#strikethrough}
+ * @description [Strikethrough扩展语法]{@link https://www.markdownguide.org/extended-syntax/#strikethrough}
+ * | 参数 | 描述 |
+ * | ---- | ---- |
+ * | teleNum | 业务号 |
  * @param addToken
  * @param EL_TYPE
  * @constructor

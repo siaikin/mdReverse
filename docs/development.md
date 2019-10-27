@@ -67,11 +67,11 @@
 - [x] 目标代码生成
 - [ ] 完成插件模块
     - [ ] Markdown扩展语法
-        - [ ] Tables
+        - [x] Tables
         - [ ] Code Syntax Highlighting
         - [ ] Footnotes
-        - [ ] Heading IDs
+        - [x] Heading IDs
         - [ ] Definition Lists
-        - [ ] Strikethrough
+        - [x] Strikethrough
         - [ ] Task Lists
         - [ ] Automatic URL Linking
