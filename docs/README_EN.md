@@ -1,4 +1,4 @@
-# mdReserve
+# mdReverse
 Convert HTML to Markdown. Written by JavaScript.
 
 [Demo](https://abc1310054026.github.io/mdReverse/)
@@ -8,19 +8,19 @@ Convert HTML to Markdown. Written by JavaScript.
 ## Installation
 npm:
 ```
-npm install md-reserve
+npm install md-reverse
 ```
 ## Usage
 ###### ES6 Modules
 ```javascript
 import {MdReverse} from 'md-reverse';
 
-const mdReserve = new MdReverse();
-mdReserve.toMarkdown(`<h1>Hello World!</h1>`);
+const mdReverse = new MdReverse();
+mdReverse.toMarkdown(`<h1>Hello World!</h1>`);
 ```
 ###### ES5
 ```javascript
 var MR = require('md-reverse');
-var mdReserve = new MR.MdReverse();
-mdReserve.toMarkdown(`<h1>Hello World!</h1>`);
+var mdReverse = new MR.MdReverse();
+mdReverse.toMarkdown(`<h1>Hello World!</h1>`);
 ```
