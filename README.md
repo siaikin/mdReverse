@@ -1,4 +1,4 @@
-# mdReserve
+# mdReverse
 将HTML文本转换为Markdown格式文本。由JavaScript编写
 
 [Demo](https://siaikin.github.io/mdReverse/)
@@ -8,7 +8,7 @@
 ## 安装
 npm:
 ```
-npm install md-reserve
+npm install md-reverse
 ```
 script引入:
 ```html
@@ -24,24 +24,26 @@ script引入:
 ```javascript
 import {MdReverse, TablePlugin, StrikethroughPlugin} from "md-reverse";
 
-const mdReserve = new MdReverse();
-mdReserve.toMarkdown(`<h1>Hello World!</h1>`);
+const mdReverse = new MdReverse();
+mdReverse.toMarkdown(`<h1>Hello World!</h1>`);
 
 // 使用插件扩展Table, Strikethrough语法
-mdReserve.use(TablePlugin);
-mdReserve.use(StrikethroughPlugin);
-mdReserve.toMarkdown(`<h1><delHello World!</del></h1>`);
-
+mdReverse.use(TablePlugin);
+mdReverse.use(StrikethroughPlugin);
+mdReverse.toMarkdown(`<h1><delHello World!</del></h1>`);
 ```
 ###### 原生js
+```html
+<script src="dist/md-reverse.browser.min.js"></script>
+```
 ```javascript
-const mdReserve = new MdReverse();
-mdReserve.toMarkdown(`<h1>Hello World!</h1>`);
+const mdReverse = new MdReverse();
+mdReverse.toMarkdown(`<h1>Hello World!</h1>`);
 
 // 使用插件扩展Table, Strikethrough语法
-mdReserve.use(MdReverse.plugin['table']);
-mdReserve.use(MdReverse.plugin['strikethrough']);
-mdReserve.toMarkdown(`<h1><delHello World!</del></h1>`);
+mdReverse.use(MdReverse.plugin['table']);
+mdReverse.use(MdReverse.plugin['strikethrough']);
+mdReverse.toMarkdown(`<h1><delHello World!</del></h1>`);
 ```
 
 ## 支持语法
@@ -53,4 +55,4 @@ mdReserve.toMarkdown(`<h1><delHello World!</del></h1>`);
 *   因为各个网站的网页结构千奇百怪，做不到匹配所有网站，建议转换的HTML文本本身就是由Markdown编写的或符合Markdown规范。
     在转换非Markdown规范的HTML文本可能准确性会大大下降。
 *   目前仅能支持Markdown的[基本语法](https://www.markdownguide.org/basic-syntax)。[扩展语法](https://www.markdownguide.org/extended-syntax)部分会在之后陆续完成。
-*   为了提高转换的准确性，对于无法识别的HTML标签，`md-reserve`会将其删除。这个问题在扩展语法部分完成后会尝试解决。
+*   为了提高转换的准确性，对于无法识别的HTML标签，`md-reverse`会将其删除。这个问题在扩展语法部分完成后会尝试解决。
